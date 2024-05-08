@@ -158,7 +158,26 @@ html { font-family: var(--ff-poppins); }
 
 body { background: var(--smoky-black); }
 
+a {
+  color: var(--bg-blue); /* Example: blue color */
+  text-decoration: none; /* Removes underline */
+}
 
+/* Hover state of the link when the mouse pointer is over it */
+a:hover {
+  color: var(--bg-blue); /* Example: dark purple color */
+  text-decoration: underline; /* Adds underline on hover */
+}
+
+/* Active state of the link during the click */
+a:active {
+  color: var(--bg-blue); /* Example: red color */
+}
+
+/* Visited state of the link after it has been clicked */
+a:visited {
+  color: var(--bg-blue); /* Example: purple color */
+}
 
 
 
