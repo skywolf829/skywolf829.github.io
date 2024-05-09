@@ -1165,6 +1165,12 @@ main {
 
 .form-title { margin-bottom: 20px; }
 
+.contact-text {
+  color: var(--light-gray);
+  font-weight: var(--fw-300);
+  line-height: 2.0;
+}
+
 .input-wrapper {
   display: grid;
   grid-template-columns: 1fr;
