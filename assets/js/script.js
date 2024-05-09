@@ -37,9 +37,9 @@ for (let i = 0; i < navigationLinks.length; i++) {
 }
 
 // Function to open the modal and load BibTeX content
-function openModal(contentId) {
+function openModal(contentId, path) {
   document.getElementById('myModal').style.display = "block";
-  loadBibTeX(contentId);
+  loadBibTeX(contentId, path);
 }
 
 // Function to close the modal
@@ -56,7 +56,8 @@ function loadBibTeX(contentId, path) {
   xhr.onload = function () {
       document.getElementById(contentId).textContent = this.responseText;
   };
-  xhr.open("GET", "https://www.skywolf829.github.io"+path);
+  console.log(path);
+  xhr.open("GET", path);
   xhr.send();
 }
 
