@@ -1500,8 +1500,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
 
   pre {
-    background-color: var(--light-gray); /* Light grey background */
-    border: 1px solid #ddd; /* Light grey border */
+    color: var(--light-gray); /* Light grey background */
     padding: 10px;
     font-family: 'Courier New', Courier, monospace; /* Monospace font makes it look more like code */
     overflow: auto; /* Adds a scrollbar if content is too wide */
