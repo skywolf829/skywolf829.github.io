@@ -56,7 +56,7 @@ function loadBibTeX(contentId, path) {
   xhr.onload = function () {
       document.getElementById(contentId).textContent = this.responseText;
   };
-  xhr.open("GET", "skywolf829.github.io"+path);
+  xhr.open("GET", "https://www.skywolf829.github.io"+path);
   xhr.send();
 }
 
