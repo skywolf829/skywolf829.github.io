@@ -447,6 +447,12 @@ main {
   font-size: var(--fs-7);
 }
 
+.contact-text {
+  color: var(--light-gray);
+  font-weight: var(--fw-300);
+  line-height: 2.0;
+}
+
 .contact-info address { font-style: normal; }
 
 .social-list {
@@ -1165,11 +1171,6 @@ main {
 
 .form-title { margin-bottom: 20px; }
 
-.contact-text {
-  color: var(--light-gray);
-  font-weight: var(--fw-300);
-  line-height: 2.0;
-}
 
 .input-wrapper {
   display: grid;
