@@ -1491,6 +1491,7 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
 
   .modal-avatar-box img { width: 65px; }
+  .modal-avatar-box ion-icon {width: 65px; }
 
   .modal-img-wrapper > img {
     display: block;
@@ -1504,8 +1505,8 @@ textarea.form-input::-webkit-resizer { display: none; }
     padding: 10px;
     font-family: 'Courier New', Courier, monospace; /* Monospace font makes it look more like code */
     overflow: auto; /* Adds a scrollbar if content is too wide */
-    white-space: pre-wrap; /* Ensures that data doesn't overflow the container */
-    word-wrap: break-word; /* Breaks the text to prevent horizontal scrolling */
+    /* white-space: pre-wrap; Ensures that data doesn't overflow the container */
+    /* word-wrap: break-word; Breaks the text to prevent horizontal scrolling */
   }
 
   /* clients */
