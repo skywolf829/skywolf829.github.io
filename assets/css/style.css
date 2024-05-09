@@ -1498,6 +1498,11 @@ textarea.form-input::-webkit-resizer { display: none; }
     flex-grow: 1;
     width: 35px;
   }
+  .modal-img-wrapper > ion-icon {
+    display: block;
+    flex-grow: 1;
+    width: 35px;
+  }
 
   pre {
     color: var(--light-gray); /* Light grey background */
