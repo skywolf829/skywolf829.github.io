@@ -1510,7 +1510,7 @@ textarea.form-input::-webkit-resizer { display: none; }
     font-family: 'Courier New', Courier, monospace; /* Monospace font makes it look more like code */
     overflow: auto; /* Adds a scrollbar if content is too wide */
     white-space: pre-wrap; /* Ensures that data doesn't overflow the container */
-    /* word-wrap: break-word; Breaks the text to prevent horizontal scrolling */
+    word-wrap: break-word; /* Breaks the text to prevent horizontal scrolling */
   }
 
   /* clients */
