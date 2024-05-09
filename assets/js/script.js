@@ -36,35 +36,37 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-// Function to open the modal and load BibTeX content
-function openModal(contentId, path) {
-  document.getElementById('myModal').style.display = "block";
-  loadBibTeX(contentId, path);
+const modalContainer = document.querySelector("[data-modal-container]");
+const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
+
+const modalTitle = document.querySelector("[data-modal-title]");
+const modalText = document.querySelector("[data-modal-text]");
+const overlay = document.querySelector("[data-overlay]");
+
+const modalFunc = function () {
+  modalContainer.classList.toggle("active");
+  overlay.classList.toggle("active");
 }
 
-// Function to close the modal
-window.onclick = function(event) {
-  var modal = document.getElementById('myModal');
-  if (event.target == modal) {
-      modal.style.display = "none";
-  }
+// Function to open the modal and load BibTeX content
+function openModal(title, path) {
+  loadBibTeX(path);
+  modalTitle.innerHTML = title;
+  modalFunc();
 }
+
 
 // Function to load BibTeX content
-function loadBibTeX(contentId, path) {
+function loadBibTeX(path) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function () {
-      document.getElementById(contentId).textContent = this.responseText;
+      modalText.innerHTML = this.responseText;
   };
   console.log(path);
   xhr.open("GET", path);
   xhr.send();
 }
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  document.getElementById('myModal').style.display = "none";
-}
+// add click event to modal close button
+modalCloseBtn.addEventListener("click", modalFunc);
+overlay.addEventListener("click", modalFunc);

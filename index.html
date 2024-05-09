@@ -286,12 +286,37 @@
           </h2>
         </header>
 
-          <!-- Modal content -->
-        <div id="myModal" class="modal">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <pre id="bibtexContent"></pre>
-          </div>
+        <!--
+          - modal
+        -->
+
+        <div class="modal-container" data-modal-container>
+
+          <div class="overlay" data-overlay></div>
+
+          <section class="testimonials-modal">
+
+            <button class="modal-close-btn" data-modal-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+            <div class="modal-img-wrapper">
+              <figure class="modal-avatar-box">                
+                <ion-icon name="newspaper-outline"></ion-icon>
+              </figure>
+            </div>
+
+            <div class="modal-content">
+
+              <h4 class="h3 modal-title" data-modal-title>Title</h4>
+
+              <div data-modal-text>
+                <p>
+                  BibTeX
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
 
         <section class="timeline">
@@ -307,7 +332,7 @@
                 <p class="timeline-text">S. W. Wurster, T. Xiong, H. -W. Shen, H. Guo and T. Peterka, "Adaptively Placed Multi-Grid Scene Representation Networks for Large-Scale Data Visualization," in IEEE Transactions on Visualization and Computer Graphics, vol. 30, no. 1, pp. 965-974, Jan. 2024.
                 </p>
                 <div>
-                  <a onclick="openModal('bibtexContent', '/assets/bibtex/APMGSRN.bib')" class="publink"">BibTeX</a>
+                  <a onclick="openModal('APMGSRN', '/assets/bibtex/APMGSRN.bib')" class="publink"">BibTeX</a>
                   <a href="https://arxiv.org/abs/2308.02494" target="_blank" class="publink"">ArXiv</a>
                   <a href="https://github.com/skywolf829/APMGSRN" target="_blank" class="publink"">Project Website</a>
                 </div>
