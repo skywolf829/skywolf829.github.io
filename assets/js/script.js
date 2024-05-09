@@ -60,7 +60,7 @@ function openModal(title, path) {
 function loadBibTeX(path) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function () {
-    modalText.innerHTML = "<pre>"+this.responseText+"</pre>";
+    modalText.innerHTML = "<p>"+this.responseText+"</p>";
   };
   xhr.open("GET", path);
   xhr.send();
