@@ -35,3 +35,35 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+// Function to open the modal and load BibTeX content
+function openModal(contentId) {
+  document.getElementById('myModal').style.display = "block";
+  loadBibTeX(contentId);
+}
+
+// Function to close the modal
+window.onclick = function(event) {
+  var modal = document.getElementById('myModal');
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+}
+
+// Function to load BibTeX content
+function loadBibTeX(contentId, path) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+      document.getElementById(contentId).textContent = this.responseText;
+  };
+  xhr.open("GET", path);
+  xhr.send();
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  document.getElementById('myModal').style.display = "none";
+}
