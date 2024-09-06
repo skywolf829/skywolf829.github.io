@@ -68,7 +68,49 @@ overlay.addEventListener("click", modalFunc);
 
 // Add these functions at the end of the file
 
-let viewer;
+const gsplatsContainer = document.getElementById('gsplats-container');
+const renderer = new THREE.WebGLRenderer({
+  antialias: false
+});
+const containerWidth = gsplatsContainer.clientWidth;
+const containerHeight = gsplatsContainer.clientHeight;
+renderer.setSize(containerWidth, containerHeight);
+gsplatsContainer.appendChild(renderer.domElement);
+
+const camera = new THREE.PerspectiveCamera(65, containerWidth / containerHeight, 0.1, 500);
+camera.position.copy(new THREE.Vector3().fromArray([-1, -4, 6]));
+camera.up = new THREE.Vector3().fromArray([0, -1, -0.6]).normalize();
+camera.lookAt(new THREE.Vector3().fromArray([0, 4, -0]));
+
+const viewer = new GaussianSplats3D.Viewer({
+  'selfDrivenMode': false,
+  'renderer': renderer,
+  'camera': camera,
+  'useBuiltInControls': false,
+  'ignoreDevicePixelRatio': false,
+  'gpuAcceleratedSort': false,// only works with shared memory
+  'enableSIMDInSort': true,
+  'sharedMemoryForWorkers': false,//fix CORS
+  'integerBasedSort': true,
+  'halfPrecisionCovariancesOnGPU': true,
+  'dynamicScene': false,
+  'webXRMode': GaussianSplats3D.WebXRMode.None,
+  'renderMode': GaussianSplats3D.RenderMode.OnChange,
+  'sceneRevealMode': GaussianSplats3D.SceneRevealMode.Instant,
+  'antialiased': false,
+  'focalAdjustment': 1.0,
+  'logLevel': GaussianSplats3D.LogLevel.None,
+  'sphericalHarmonicsDegree': 0,
+  'enableOptionalEffects': false,
+  'plyInMemoryCompressionLevel': 2,
+  'freeIntermediateSplatData': false
+});
+
+function update() {
+  requestAnimationFrame(update);
+  viewer.update();
+  viewer.render();
+}
 
 function showGSplats() {
   document.querySelector('.projects').style.display = 'none';
@@ -79,41 +121,12 @@ function showGSplats() {
 }
 
 function loadGSplat(filename) {
-  if (!viewer) {
-    viewer = new GaussianSplats3D.Viewer({
-      'cameraUp': [0, -1, 0],
-      'initialCameraPosition': [-2, -2, -2],
-      'initialCameraLookAt': [0, 0, 0],
-      'sharedMemoryForWorkers': false
-    });
-  }
   
-  // Clear previous scene
-  if (viewer.splatMesh) {
-    viewer.dispose();
-  }
-  viewer = new GaussianSplats3D.Viewer({
-    'cameraUp': [0, -1, 0],
-    'initialCameraPosition': [-2, -2, -2],
-    'initialCameraLookAt': [0, 0, 0],
-    'sharedMemoryForWorkers': false
-  });
-  viewer.renderer.domElement = document.getElementById('gsplats-container');
   viewer.addSplatScene(`./assets/gsplats/${filename}`, {
     'showLoadingUI': true
   }).then(() => {
-    viewer.start();
-    console.log(viewer);
-    /*
-    const viewerDiv = document.body.lastElementChild;
-    const gsplatsContainer = document.getElementById('gsplats-container');
-    gsplatsContainer.innerHTML = ''; // Clear existing content
-    while (viewerDiv.firstChild) {
-      gsplatsContainer.appendChild(viewerDiv.firstChild);
-    }
-    viewerDiv.remove(); // Remove the original empty div
-    */
-  });
+    requestAnimationFrame(update);
+});
   
   // Update URL
   history.pushState(null, '', `#gsplats/${filename}`);
