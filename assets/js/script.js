@@ -65,46 +65,53 @@ function loadBibTeX(path) {
 // add click event to modal close button
 modalCloseBtn.addEventListener("click", modalFunc);
 overlay.addEventListener("click", modalFunc);
+let viewer;
+let renderer;
+let camera;
+const gsplatsContainer = document.getElementById('gsplats-container');
+let containerWidth = gsplatsContainer.clientWidth;
+let containerHeight = gsplatsContainer.clientHeight;
 
 // Add these functions at the end of the file
+document.addEventListener('DOMContentLoaded', function() {
+  renderer = new THREE.WebGLRenderer({
+    antialias: false
+  });
+  containerWidth = gsplatsContainer.clientWidth;
+  containerHeight = gsplatsContainer.clientHeight;
+  renderer.setSize(containerWidth, containerHeight);
+  gsplatsContainer.appendChild(renderer.domElement);
 
-const gsplatsContainer = document.getElementById('gsplats-container');
-const renderer = new THREE.WebGLRenderer({
-  antialias: false
+  camera = new THREE.PerspectiveCamera(65, containerWidth / containerHeight, 0.1, 500);
+  camera.position.copy(new THREE.Vector3().fromArray([-1, -4, 6]));
+  camera.up = new THREE.Vector3().fromArray([0, -1, -0.6]).normalize();
+  camera.lookAt(new THREE.Vector3().fromArray([0, 4, -0]));
+
+  viewer = new GaussianSplats3D.Viewer({
+    'selfDrivenMode': false,
+    'renderer': renderer,
+    'camera': camera,
+    'useBuiltInControls': false,
+    'ignoreDevicePixelRatio': false,
+    'gpuAcceleratedSort': false,// only works with shared memory
+    'enableSIMDInSort': true,
+    'sharedMemoryForWorkers': false,//fix CORS
+    'integerBasedSort': true,
+    'halfPrecisionCovariancesOnGPU': true,
+    'dynamicScene': false,
+    'webXRMode': GaussianSplats3D.WebXRMode.None,
+    'renderMode': GaussianSplats3D.RenderMode.OnChange,
+    'sceneRevealMode': GaussianSplats3D.SceneRevealMode.Instant,
+    'antialiased': false,
+    'focalAdjustment': 1.0,
+    'logLevel': GaussianSplats3D.LogLevel.None,
+    'sphericalHarmonicsDegree': 0,
+    'enableOptionalEffects': false,
+    'plyInMemoryCompressionLevel': 2,
+    'freeIntermediateSplatData': false
+  });
 });
-const containerWidth = gsplatsContainer.clientWidth;
-const containerHeight = gsplatsContainer.clientHeight;
-renderer.setSize(containerWidth, containerHeight);
-gsplatsContainer.appendChild(renderer.domElement);
 
-const camera = new THREE.PerspectiveCamera(65, containerWidth / containerHeight, 0.1, 500);
-camera.position.copy(new THREE.Vector3().fromArray([-1, -4, 6]));
-camera.up = new THREE.Vector3().fromArray([0, -1, -0.6]).normalize();
-camera.lookAt(new THREE.Vector3().fromArray([0, 4, -0]));
-
-const viewer = new GaussianSplats3D.Viewer({
-  'selfDrivenMode': false,
-  'renderer': renderer,
-  'camera': camera,
-  'useBuiltInControls': false,
-  'ignoreDevicePixelRatio': false,
-  'gpuAcceleratedSort': false,// only works with shared memory
-  'enableSIMDInSort': true,
-  'sharedMemoryForWorkers': false,//fix CORS
-  'integerBasedSort': true,
-  'halfPrecisionCovariancesOnGPU': true,
-  'dynamicScene': false,
-  'webXRMode': GaussianSplats3D.WebXRMode.None,
-  'renderMode': GaussianSplats3D.RenderMode.OnChange,
-  'sceneRevealMode': GaussianSplats3D.SceneRevealMode.Instant,
-  'antialiased': false,
-  'focalAdjustment': 1.0,
-  'logLevel': GaussianSplats3D.LogLevel.None,
-  'sphericalHarmonicsDegree': 0,
-  'enableOptionalEffects': false,
-  'plyInMemoryCompressionLevel': 2,
-  'freeIntermediateSplatData': false
-});
 
 function update() {
   requestAnimationFrame(update);

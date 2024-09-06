@@ -782,13 +782,14 @@
       }
     }
   </script>
-  </script>
-    
-  <!-- Load the Gaussian Splats module -->
-  <script type="module" src="./assets/js/gsplats-module.js"></script>
+  
+  <!-- Load the Three.js module first -->
   <script type="module" src="./assets/js/three-module.js"></script>
   
-  <!-- Then load your script as a regular script -->
+  <!-- Then load the Gaussian Splats module -->
+  <script type="module" src="./assets/js/gsplats-module.js"></script>
+  
+  <!-- Finally, load your script as a regular script -->
   <script src="./assets/js/script.js"></script>
 
   <!--
