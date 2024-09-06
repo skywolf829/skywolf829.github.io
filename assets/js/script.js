@@ -96,8 +96,9 @@ function loadGSplat(filename) {
     'cameraUp': [0, -1, 0],
     'initialCameraPosition': [-2, -2, -2],
     'initialCameraLookAt': [0, 0, 0],
+    'sharedMemoryForWorkers': false
   });
-  console.log(viewer.domElement);
+  console.log(viewer);
   viewer.addSplatScene(`./assets/gsplats/${filename}`, {
     'showLoadingUI': true
   }).then(() => {
