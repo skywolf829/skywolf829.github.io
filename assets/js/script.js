@@ -72,7 +72,7 @@ overlay.addEventListener("click", modalFunc);
 
 // Add these functions at the end of the file
 
-import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
+const GaussianSplats3D = window.GaussianSplats3D;
 
 let viewer;
 
