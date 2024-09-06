@@ -69,3 +69,76 @@ function loadBibTeX(path) {
 // add click event to modal close button
 modalCloseBtn.addEventListener("click", modalFunc);
 overlay.addEventListener("click", modalFunc);
+
+// Add these functions at the end of the file
+
+import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
+
+let viewer;
+
+function showGSplats() {
+  document.querySelector('.projects').style.display = 'none';
+  document.getElementById('gsplats-viewer').style.display = 'block';
+  
+  // Update URL
+  history.pushState(null, '', '#gsplats');
+}
+
+function loadGSplat(filename) {
+  if (!viewer) {
+    viewer = new GaussianSplats3D.Viewer({
+      'cameraUp': [0, -1, 0],
+      'initialCameraPosition': [-2, -2, -2],
+      'initialCameraLookAt': [0, 0, 0]
+    });
+  }
+  
+  // Clear previous scene
+  if (viewer.splatMesh) {
+    viewer.scene.remove(viewer.splatMesh);
+  }
+  
+  viewer.addSplatScene(`./assets/gsplats/${filename}`, {
+    'splatAlphaRemovalThreshold': 5,
+    'showLoadingUI': true
+  }).then(() => {
+    viewer.start();
+  });
+  
+  // Update URL
+  history.pushState(null, '', `#gsplats/${filename}`);
+}
+
+// Modify the existing elementHasChild function
+function elementHasChild(parent, child) {
+  if (child === parent) return true;
+  let node = child.parentNode;
+  while (node != null) {
+    if (node == parent) return true;
+    node = node.parentNode;
+  }
+  return false;
+}
+
+// Add this to the existing window.addEventListener('load', ...) function
+window.addEventListener('load', function() {
+  // ... (existing code)
+
+  // Handle initial URL
+  handleURL();
+});
+
+// Add this new function to handle URL changes
+function handleURL() {
+  const hash = window.location.hash;
+  if (hash.startsWith('#gsplats')) {
+    showGSplats();
+    const filename = hash.split('/')[1];
+    if (filename) {
+      loadGSplat(filename);
+    }
+  }
+}
+
+// Add this to handle browser back/forward navigation
+window.addEventListener('popstate', handleURL);

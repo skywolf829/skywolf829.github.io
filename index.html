@@ -579,6 +579,18 @@
         <section class="projects">
 
           <ul class="project-list">
+            <li class="project-item active">
+              <a href="#" onclick="showGSplats(); return false;">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img src="./assets/images/gsplats_thumbnail.jpg" alt="GSplats" loading="lazy">
+                </figure>
+                <h3 class="project-title">GSplats Viewer</h3>
+                <p class="project-category">3D Gaussian Splatting</p>
+              </a>
+            </li>
 
             <li class="project-item  active">
               <a href="https://github.com/skywolf829/APMGSRN">
@@ -712,6 +724,14 @@
           </ul>
 
         </section>
+        <section id="gsplats-viewer" style="display: none;">
+          <h3>GSplats Viewer</h3>
+          <div id="gsplats-file-list">
+            <button onclick="loadGSplat('451bedroom.ksplat')">Bedroom</button>
+            <button onclick="loadGSplat('dnd.ksplat')">Dungeons and Dragons</button>
+          </div>
+          <div id="gsplats-container" style="width: 100%; height: 600px;"></div>
+        </section>
 
       </article>
 
@@ -756,6 +776,28 @@
 
   <!--
     - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+</html>
+</html>
   -->
   <script src="./assets/js/script.js"></script>
 
