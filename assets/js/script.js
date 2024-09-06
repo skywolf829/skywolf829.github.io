@@ -137,6 +137,10 @@ function handleURL() {
       loadGSplat(filename);
     }
   }
+  else {
+    document.querySelector('.projects').style.display = 'block';
+    document.getElementById('gsplats-viewer').style.display = 'none';
+  }
 }
 
 // Add this to handle browser back/forward navigation
