@@ -777,14 +777,14 @@
   <!--
     - custom js link
   -->
-  <script type="importmap">
-    {
-      "imports": {
-        "@mkkellogg/gaussian-splats-3d": "https://cdn.jsdelivr.net/npm/@mkkellogg/gaussian-splats-3d@0.4.4/+esm"
-      }
-    }
-  </script>
-  <script type="module" src="./assets/js/script.js"></script>
+  <!-- Load the Gaussian Splats 3D library -->
+  <script src="
+  https://cdn.jsdelivr.net/npm/three-js@79.0.0/three.min.js
+  "></script>
+  <script src="
+  https://cdn.jsdelivr.net/npm/@mkkellogg/gaussian-splats-3d@0.4.4/build/gaussian-splats-3d.module.min.js
+  "></script>
+  <script src="./assets/js/script.js"></script>
 
   <!--
     - ionicon link

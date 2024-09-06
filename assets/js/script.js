@@ -1,7 +1,5 @@
 'use strict';
 
-import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
-
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
