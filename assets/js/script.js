@@ -103,6 +103,14 @@ function loadGSplat(filename) {
     'showLoadingUI': true
   }).then(() => {
     viewer.start();
+    // Move the viewer's div into the gsplats-viewer container
+    const viewerDiv = document.body.lastElementChild;
+    const gsplatsContainer = document.getElementById('gsplats-container');
+    gsplatsContainer.innerHTML = ''; // Clear existing content
+    while (viewerDiv.firstChild) {
+      gsplatsContainer.appendChild(viewerDiv.firstChild);
+    }
+    viewerDiv.remove(); // Remove the original empty div
   });
   
   // Update URL
