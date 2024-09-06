@@ -1,11 +1,9 @@
 'use strict';
 
-
+import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
 
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
-
-
 
 // sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
@@ -71,8 +69,6 @@ modalCloseBtn.addEventListener("click", modalFunc);
 overlay.addEventListener("click", modalFunc);
 
 // Add these functions at the end of the file
-
-const GaussianSplats3D = window.GaussianSplats3D;
 
 let viewer;
 
