@@ -94,7 +94,8 @@ function loadGSplat(filename) {
   viewer = new GaussianSplats3D.Viewer({
     'cameraUp': [0, -1, 0],
     'initialCameraPosition': [-2, -2, -2],
-    'initialCameraLookAt': [0, 0, 0]
+    'initialCameraLookAt': [0, 0, 0],
+    'sharedMemoryForWorkers': false
   });
   
   viewer.addSplatScene(`./assets/gsplats/${filename}`, {
