@@ -79,6 +79,14 @@ function showGSplats() {
 }
 
 function loadGSplat(filename) {
+  if (!viewer) {
+    viewer = new GaussianSplats3D.Viewer({
+      'cameraUp': [0, -1, 0],
+      'initialCameraPosition': [-2, -2, -2],
+      'initialCameraLookAt': [0, 0, 0],
+      'sharedMemoryForWorkers': false
+    });
+  }
   
   // Clear previous scene
   if (viewer.splatMesh) {
@@ -88,10 +96,8 @@ function loadGSplat(filename) {
     'cameraUp': [0, -1, 0],
     'initialCameraPosition': [-2, -2, -2],
     'initialCameraLookAt': [0, 0, 0],
-    'sharedMemoryForWorkers': false
   });
   console.log(viewer.domElement);
-  
   viewer.addSplatScene(`./assets/gsplats/${filename}`, {
     'showLoadingUI': true
   }).then(() => {
