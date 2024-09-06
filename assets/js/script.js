@@ -98,13 +98,14 @@ function loadGSplat(filename) {
     'initialCameraLookAt': [0, 0, 0],
     'sharedMemoryForWorkers': false
   });
+  viewer.renderer.domElement = document.getElementById('gsplats-container');
   console.log(viewer);
   viewer.addSplatScene(`./assets/gsplats/${filename}`, {
     'showLoadingUI': true
   }).then(() => {
     viewer.start();
     console.log(viewer);
-    // Move the viewer's div into the gsplats-viewer container
+    /*
     const viewerDiv = document.body.lastElementChild;
     const gsplatsContainer = document.getElementById('gsplats-container');
     gsplatsContainer.innerHTML = ''; // Clear existing content
@@ -112,6 +113,7 @@ function loadGSplat(filename) {
       gsplatsContainer.appendChild(viewerDiv.firstChild);
     }
     viewerDiv.remove(); // Remove the original empty div
+    */
   });
   
   // Update URL
