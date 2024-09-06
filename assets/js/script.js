@@ -99,7 +99,6 @@ function loadGSplat(filename) {
     'sharedMemoryForWorkers': false
   });
   viewer.renderer.domElement = document.getElementById('gsplats-container');
-  console.log(viewer);
   viewer.addSplatScene(`./assets/gsplats/${filename}`, {
     'showLoadingUI': true
   }).then(() => {
