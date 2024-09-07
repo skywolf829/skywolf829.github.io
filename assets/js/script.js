@@ -23,6 +23,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
         pages[i].classList.add("active");
         navigationLinks[i].classList.add("active");
         window.scrollTo(0, 0);
+        history.pushState(null, '', '#' + pages[i].dataset.page);
       } else {
         pages[i].classList.remove("active");
         navigationLinks[i].classList.remove("active");
@@ -147,7 +148,11 @@ function showGSplats() {
   document.getElementById('gsplats-viewer').style.display = 'block';
   
   // Update URL
-  history.pushState(null, '', '#gsplats');
+  const currentHash = window.location.hash;
+  if (!currentHash.includes('#gsplats')) {
+    const newHash = currentHash ? currentHash + '#gsplats' : '#gsplats';
+    history.pushState(null, '', newHash);
+  }
   
   // Trigger resize handler
   handleContainerResize();
@@ -190,7 +195,19 @@ function loadGSplat(filename) {
   });
   
   // Update URL
-  history.pushState(null, '', `#gsplats/${filename}`);
+  const currentHash = window.location.hash;
+  const filenameRegex = /#filename=([^#]+)/;
+  const match = currentHash.match(filenameRegex);
+  
+  if (match) {
+    // Replace existing filename
+    const newHash = currentHash.replace(filenameRegex, `#filename=${filename}`);
+    history.pushState(null, '', newHash);
+  } else {
+    // Add new filename
+    const newHash = `${currentHash}#filename=${filename}`;
+    history.pushState(null, '', newHash);
+  }
 }
 
 // Modify the existing elementHasChild function
@@ -212,20 +229,40 @@ window.addEventListener('load', function() {
   handleURL();
 });
 
+// Listen for hash changes and call handleURL
+window.onhashchange = function() { handleURL(); }
+
 // Add this new function to handle URL changes
 function handleURL() {
   const hash = window.location.hash;
-  if (hash.startsWith('#gsplats')) {
+  console.log(window.location);
+  if (hash.includes('#gsplats')) {
+    console.log("gsplats");
     showGSplats();
-    const filename = hash.split('/')[1];
-    if (filename) {
+    const filename = hash.split('#filename=')[1];
+    if (filename && filename.trim() !== '') {
       loadGSplat(filename);
     }
-  }
-  else {
+  } else {
+    console.log("not gsplats");
+
     document.querySelector('.projects').style.display = 'block';
     document.getElementById('gsplats-viewer').style.display = 'none';
   }
+
+  // Handle navbar menu selection
+  const pages = document.querySelectorAll("[data-page]");
+  const navigationLinks = document.querySelectorAll("[data-nav-link]");
+
+  pages.forEach((page, index) => {
+    if (hash.includes('#' + page.dataset.page)) {
+      page.classList.add("active");
+      navigationLinks[index].classList.add("active");
+    } else {
+      page.classList.remove("active");
+      navigationLinks[index].classList.remove("active");
+    }
+  });
 }
 
 // Add this to handle browser back/forward navigation
