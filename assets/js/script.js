@@ -68,24 +68,43 @@ overlay.addEventListener("click", modalFunc);
 let viewer;
 let renderer;
 let camera;
+let controls;
 const gsplatsContainer = document.getElementById('gsplats-container');
 let containerWidth = gsplatsContainer.clientWidth;
 let containerHeight = gsplatsContainer.clientHeight;
+
+// Function to handle container size changes
+function handleContainerResize() {
+  containerWidth = gsplatsContainer.clientWidth;
+  containerHeight = gsplatsContainer.clientHeight;
+  
+  if (renderer && camera) {
+    renderer.setSize(containerWidth, containerHeight);
+    camera.aspect = containerWidth / containerHeight;
+    camera.updateProjectionMatrix();
+  }
+}
 
 // Add these functions at the end of the file
 document.addEventListener('DOMContentLoaded', function() {
   renderer = new THREE.WebGLRenderer({
     antialias: false
   });
-  containerWidth = gsplatsContainer.clientWidth;
-  containerHeight = gsplatsContainer.clientHeight;
-  renderer.setSize(containerWidth, containerHeight);
+  
+  handleContainerResize();
   gsplatsContainer.appendChild(renderer.domElement);
 
   camera = new THREE.PerspectiveCamera(65, containerWidth / containerHeight, 0.1, 500);
   camera.position.copy(new THREE.Vector3().fromArray([-1, -4, 6]));
   camera.up = new THREE.Vector3().fromArray([0, -1, -0.6]).normalize();
   camera.lookAt(new THREE.Vector3().fromArray([0, 4, -0]));
+
+  // Add OrbitControls
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.25;
+  controls.screenSpacePanning = true;
+  //controls.maxPolarAngle = Math.PI / 2;
 
   viewer = new GaussianSplats3D.Viewer({
     'selfDrivenMode': false,
@@ -110,11 +129,15 @@ document.addEventListener('DOMContentLoaded', function() {
     'plyInMemoryCompressionLevel': 2,
     'freeIntermediateSplatData': false
   });
+
+  // Add resize listener
+  window.addEventListener('resize', handleContainerResize);
 });
 
 
 function update() {
   requestAnimationFrame(update);
+  controls.update(); // Update OrbitControls
   viewer.update();
   viewer.render();
 }
@@ -125,6 +148,9 @@ function showGSplats() {
   
   // Update URL
   history.pushState(null, '', '#gsplats');
+  
+  // Trigger resize handler
+  handleContainerResize();
 }
 
 function loadGSplat(filename) {
@@ -133,7 +159,8 @@ function loadGSplat(filename) {
     'showLoadingUI': true
   }).then(() => {
     requestAnimationFrame(update);
-});
+    handleContainerResize();
+  });
   
   // Update URL
   history.pushState(null, '', `#gsplats/${filename}`);
