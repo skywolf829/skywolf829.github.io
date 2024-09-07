@@ -16,6 +16,35 @@
     - custom css link
   -->
   <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    .gsplat-button {
+      background-color: var(--eerie-black-1);
+      color: var(--bg-blue);
+      border: 1px solid var(--bg-blue);
+      border-radius: 8px;
+      padding: 8px 15px;
+      font-size: var(--fs-6);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 5px;
+    }
+  
+    .gsplat-button:hover {
+      background-color: var(--bg-blue);
+      color: var(--white-1);
+    }
+  
+    .gsplat-button:active {
+      transform: scale(0.95);
+    }
+  
+    #gsplats-file-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+  </style>
 
   <!--
     - google font link
@@ -177,21 +206,20 @@
       <nav class="navbar">
 
         <ul class="navbar-list">
-
           <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link onclick="history.replaceState(null, '', window.location.pathname)">About</button>
+            <button class="navbar-link  active" data-nav-link onclick="history.pushState(null, '', '/'); handleURL();">About</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link onclick="history.replaceState(null, '', window.location.pathname)">Resume</button>
+            <button class="navbar-link" data-nav-link onclick="history.pushState(null, '', '/'); handleURL();">Resume</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link onclick="history.replaceState(null, '', window.location.pathname)">Projects</button>
+            <button class="navbar-link" data-nav-link onclick="history.pushState(null, '', '/'); handleURL();">Projects</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link onclick="history.replaceState(null, '', window.location.pathname)">Contact</button>
+            <button class="navbar-link" data-nav-link onclick="history.pushState(null, '', '/'); handleURL();">Contact</button>
           </li>
 
         </ul>
@@ -585,7 +613,7 @@
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-                  <img src="./assets/images/gsplats_thumbnail.jpg" alt="GSplats" loading="lazy">
+                  <img src="./assets/images/gsplats.png" alt="GSplats" loading="lazy">
                 </figure>
                 <h3 class="project-title">GSplats Viewer</h3>
                 <p class="project-category">3D Gaussian Splatting</p>
@@ -725,10 +753,11 @@
 
         </section>
         <section id="gsplats-viewer" style="display: none;">
-          <h3>GSplats Viewer</h3>
+          <h3 class="h3 article-title">GSplats Viewer</h3>
           <div id="gsplats-file-list">
-            <button onclick="loadGSplat('451bedroom.ksplat')">Bedroom</button>
-            <button onclick="loadGSplat('dnd.ksplat')">Dungeons and Dragons</button>
+            <button class="gsplat-button" onclick="loadGSplat('451bedroom.ksplat')">Bedroom</button>
+            <button class="gsplat-button" onclick="loadGSplat('dnd.ksplat')">Dungeons and Dragons</button>
+            <button class="gsplat-button" onclick="loadGSplat('backyard.ksplat')">Backyard</button>
           </div>
           <div id="gsplats-container" style="width: 100%; height: 600px;"></div>
         </section>

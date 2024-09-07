@@ -154,6 +154,33 @@ function showGSplats() {
 }
 
 function loadGSplat(filename) {
+  // Clear the previous viewer before loading the next asset
+  if (viewer) {
+    viewer.dispose();
+    viewer = new GaussianSplats3D.Viewer({
+      'selfDrivenMode': false,
+      'renderer': renderer,
+      'camera': camera,
+      'useBuiltInControls': false,
+      'ignoreDevicePixelRatio': false,
+      'gpuAcceleratedSort': false,// only works with shared memory
+      'enableSIMDInSort': true,
+      'sharedMemoryForWorkers': false,//fix CORS
+      'integerBasedSort': true,
+      'halfPrecisionCovariancesOnGPU': true,
+      'dynamicScene': false,
+      'webXRMode': GaussianSplats3D.WebXRMode.None,
+      'renderMode': GaussianSplats3D.RenderMode.OnChange,
+      'sceneRevealMode': GaussianSplats3D.SceneRevealMode.Instant,
+      'antialiased': false,
+      'focalAdjustment': 1.0,
+      'logLevel': GaussianSplats3D.LogLevel.None,
+      'sphericalHarmonicsDegree': 0,
+      'enableOptionalEffects': false,
+      'plyInMemoryCompressionLevel': 2,
+      'freeIntermediateSplatData': false
+    });
+  }
   
   viewer.addSplatScene(`./assets/gsplats/${filename}`, {
     'showLoadingUI': true
