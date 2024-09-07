@@ -235,17 +235,13 @@ window.onhashchange = function() { handleURL(); }
 // Add this new function to handle URL changes
 function handleURL() {
   const hash = window.location.hash;
-  console.log(window.location);
   if (hash.includes('#gsplats')) {
-    console.log("gsplats");
     showGSplats();
     const filename = hash.split('#filename=')[1];
     if (filename && filename.trim() !== '') {
       loadGSplat(filename);
     }
   } else {
-    console.log("not gsplats");
-
     document.querySelector('.projects').style.display = 'block';
     document.getElementById('gsplats-viewer').style.display = 'none';
   }
