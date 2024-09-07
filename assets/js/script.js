@@ -235,6 +235,10 @@ window.onhashchange = function() { handleURL(); }
 // Add this new function to handle URL changes
 function handleURL() {
   const hash = window.location.hash;
+  if (hash === '') {
+    history.pushState(null, '', '#about');
+    return;
+  }
   if (hash.includes('#gsplats')) {
     showGSplats();
     const filename = hash.split('#filename=')[1];
