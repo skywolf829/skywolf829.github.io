@@ -149,8 +149,8 @@ function showGSplats() {
   
   // Update URL
   const currentHash = window.location.hash;
-  if (!currentHash.includes('#gsplats')) {
-    const newHash = currentHash ? currentHash + '#gsplats' : '#gsplats';
+  if (!currentHash.includes('?gsplats')) {
+    const newHash = currentHash ? currentHash + '?gsplats' : '?gsplats';
     history.pushState(null, '', newHash);
   }
   
@@ -196,16 +196,13 @@ function loadGSplat(filename) {
   
   // Update URL
   const currentHash = window.location.hash;
-  const filenameRegex = /#filename=([^#]+)/;
-  const match = currentHash.match(filenameRegex);
-  
-  if (match) {
+  if (currentHash.includes('?filename=')) {
     // Replace existing filename
-    const newHash = currentHash.replace(filenameRegex, `#filename=${filename}`);
+    const newHash = currentHash.replace(/\?filename=[^&]+/, `?filename=${filename}`);
     history.pushState(null, '', newHash);
   } else {
     // Add new filename
-    const newHash = `${currentHash}#filename=${filename}`;
+    const newHash = `${currentHash}?filename=${filename}`;
     history.pushState(null, '', newHash);
   }
 }
@@ -239,9 +236,9 @@ function handleURL() {
     history.pushState(null, '', '#about');
     return;
   }
-  if (hash.includes('#gsplats')) {
+  if (hash.includes('?gsplats')) {
     showGSplats();
-    const filename = hash.split('#filename=')[1];
+    const filename = hash.split('?filename=')[1];
     if (filename && filename.trim() !== '') {
       loadGSplat(filename);
     }
